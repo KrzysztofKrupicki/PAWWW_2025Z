@@ -1,10 +1,10 @@
 # PAWWW_2025Z
 Programowanie aplikacji WWW
 
-Zbiór linków na laboratoria
+ZbiÃ³r linkÃ³w na laboratoria\
 https://enzomind.com/files/uwm/wyklady/ProjAppWeb/new_lab/lab_links.txt
 
-PDF'y z laboratoriów
+PDF'y z laboratoriÃ³w\
 https://enzomind.com/files/uwm/wyklady/ProjAppWeb/new_lab/lab1/lab1_html_css.pdf
 https://enzomind.com/files/uwm/wyklady/ProjAppWeb/lab1.pdf
 https://enzomind.com/files/uwm/wyklady/ProjAppWeb/lab2.pdf
