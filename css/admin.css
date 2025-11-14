@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    line-height: 1.6;
+    background-color: #ffffff;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* FormularzLogowania() - PHP */
+.logowanie {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 600px;
+    margin: auto;
+    color: black;
+}
+
+.heading {
+    font-size: 24px;
+    text-align: center;
+}
+
+.logowanie input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.logowanie input[type=submit] {
+    cursor: pointer;
+}
+
+.admin_panel_heading {
+    text-align: center;
+    color: #1565c0;
+}
+
+
+/* ListaPodstron() - PHP */
+.subpage_list_heading {
+    font-size: 22px;
+    margin: 20px;
+    color: #1565c0;
+}
+
+.subpage_item {
+    border: 1px solid #b0c4de;
+    border-radius: 8px;
+    background-color: #e3f2fd;
+    padding: 15px;
+    margin-bottom: 10px;
+    margin: 10px 20px
+}
+
+.subpage_item p {
+    margin: 0;
+    font-size: 18px;
+}
+
+.subpage_actions {
+    display: flex;
+    gap: 30px;
+}
+
+.actions_button {
+    flex: 1;
+    text-align: center;
+}
+
+.btn_del,
+.btn_edit {
+    color: blue;
+    cursor: pointer;
+    padding: 8px 24px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn_del {
+    color: red;
+}
+
+/* PHP FORMS */
+.new_subpage,
+.edit_subpage {
+    background-color: #e3f2fd;
+    padding: 20px;
+    border: 1px solid #b0c4de;
+    margin: 20px;
+    border-radius: 8px;
+}
+
+.warning {
+    color: red;
+    font-weight: bold;
+}
+
+.success {
+    color: green;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

@@ -7,5 +7,8 @@ $db = 'moja_strona';
 
 $link = mysqli_connect($dbhost, $dbuser, $dbpass, $db);
 if (!$link)
-    echo "<b>Przerwano połączenie z bazą danych!</b>";
+    die("<b>Przerwano połączenie z bazą danych!</b>");
+
+$login = 'admin';
+$pass = 'zaq1@WSX';
 ?>
