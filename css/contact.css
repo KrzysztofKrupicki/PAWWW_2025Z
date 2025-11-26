@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    line-height: 1.6;
+    background-color: #ffffff;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- FORMULARZ KONTAKTU --- */
+.send_mail_form {
+    max-width: 640px;
+    margin: 40px auto;
+    background-color: #f5faff;
+    border: 1px solid #b0c4de;
+    border-radius: 8px;
+    padding: 16px 30px;
+    box-shadow: 0 2px 10px rgba(21, 101, 192, 0.15);
+}
+
+.send_mail_form h2 {
+    color: #1565c0;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+}
+
+/* Grupy pól */
+.send_mail_form .form-group {
+    margin-bottom: 18px;
+}
+
+.send_mail_form label {
+    font-weight: bold;
+    color: #222e3c;
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* Input + textarea */
+.send_mail_form .form-input,
+.send_mail_form .form-textarea {
+    width: 95%;
+    padding: 12px;
+    background-color: #e3f2fd;
+    border: 1px solid #90caf9;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #222e3c;
+}
+
+.send_mail_form .form-input:focus,
+.send_mail_form .form-textarea:focus {
+    border-color: #1565c0;
+    box-shadow: 0 0 5px rgba(21, 101, 192, 0.4);
+    outline: none;
+}
+
+.send_mail_form .form-textarea {
+    height: 160px;
+}
+
+/* Informacja pod polem email */
+.send_mail_form .form-info {
+    font-size: 14px;
+    color: #444;
+    text-align: center;
+    margin-top: -5px;
+    margin-bottom: 20px;
+}
+
+/* Przyciski */
+.send_mail_form .form-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.send_mail_form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #1976d2;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: 0.25s;
+}
+
+.send_mail_form button:hover {
+    background-color: #7ec8e3;
+    color: #222e3c;
+}
+
+/* Reset */
+.send_mail_form .btn-secondary {
+    background-color: #6c757d;
+}
+
+.send_mail_form .btn-secondary:hover {
+    background-color: #90a4ae;
+    color: #222e3c;
+}

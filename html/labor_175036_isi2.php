@@ -5,10 +5,10 @@ $nrGrupy = 'ISI2';
 echo "Krzysztof Krupicki $nr_indeksu $nrGrupy";
 echo "<br>Zastosowanie metody include()<br>";
 
-include('test_include.php');
-test_include();
-require_once('test_require_once.php');
-test_require_once();
+// include('test_include.php');
+// test_include();
+// require_once('test_require_once.php');
+// test_require_once();
 
 ?>
 <form action="labor_175036_isi2.php" method="get">
@@ -19,7 +19,7 @@ test_require_once();
 
 
 <?php
-if(!empty($_GET['val1'])){
+if (!empty($_GET['val1'])) {
     $value = $_GET['val1'];
 } else {
     $value = 23;
@@ -40,7 +40,7 @@ while ($value > 0) {
 }
 
 echo "<p>Pętla for<p>";
-for($i = 10; $i!=0; $i--){
+for ($i = 10; $i != 0; $i--) {
     echo "$i<br>";
 }
 
@@ -53,7 +53,7 @@ for($i = 10; $i!=0; $i--){
 </form>
 
 <?php
-if (!empty($_POST['val2'])){
+if (!empty($_POST['val2'])) {
     $value2 = $_POST['val2'];
 } else {
     $value2 = rand(0, 10);
@@ -87,6 +87,6 @@ if (!isset($_SESSION['visit_counter'])) {
     $_SESSION['visit_counter']++;
 }
 
-echo "Licznik wizyt: ".$_SESSION['visit_counter']."<br>";
+echo "Licznik wizyt: " . $_SESSION['visit_counter'] . "<br>";
 
 ?>

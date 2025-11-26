@@ -63,7 +63,6 @@ if (isset($_GET['page'])) {
       $headerTitle = 'PHP';
       $headerDescription = 'Laboratorium 4.';
       $pageContent = PokazPodstrone(id: 8);
-      break;
     case 9:
       $title = 'Największe mosty świata - Filmy o mostach';
       $headerTitle = 'Filmy o mostach';
@@ -77,6 +76,20 @@ if (isset($_GET['page'])) {
   }
   if (!file_exists($page)) {
     $page = './html/404.html';
+  }
+}
+function renderPage($content)
+{
+  // sprawdzamy, czy w treści jest kod PHP
+  if (strpos($content, '<?php') !== false) {
+    // tworzymy tymczasowy plik i include
+    $tmp_file = tempnam(sys_get_temp_dir(), 'page_') . '.php';
+    file_put_contents($tmp_file, $content);
+    include $tmp_file;
+    unlink($tmp_file);
+  } else {
+    // zwykły HTML
+    echo $content;
   }
 }
 ?>
@@ -120,9 +133,8 @@ if (isset($_GET['page'])) {
   </nav>
   </header>
   <main>
-    <?php echo $pageContent ?>
+    <?php renderPage($pageContent); ?>
   </main>
-
   <?php
   $nr_indeksu = '175036';
   $nrGrupy = 'ISI2';

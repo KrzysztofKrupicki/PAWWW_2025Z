@@ -61,28 +61,25 @@ echo '<!DOCTYPE html>
 </head>';
 
 if (isset($_SESSION['zalogowany']) && $_SESSION['zalogowany'] == true) {
-    $_SESSION['zalogowany'] = true;
     echo "<h1 class='admin_panel_heading'>Panel administracyjny</h1>";
     RenderPanel();
-} else {
-    $_SESSION['zalogowany'] = false;
-    echo FormularzLogowania();
+    exit();
+}
 
-    if (isset($_POST['login_email']) && isset($_POST['login_pass'])) {
-        $form_login = $_POST['login_email'];
-        $form_pass = $_POST['login_pass'];
-        if ($form_login == $login && $form_pass == $pass) {
-            $_SESSION['zalogowany'] = true;
-            echo "Zalogowano pomyślnie!<br/><br/>";
-            echo "<h1 class='admin_panel_heading'>Panel administracyjny</h1>";
-            RenderPanel();
-        } else {
-            echo "<b style='color: red;'>Niepoprawny login lub hasło!</b>";
-            echo FormularzLogowania();
-            exit();
-        }
+if (isset($_POST['login_email']) && isset($_POST['login_pass'])) {
+
+    $form_login = $_POST['login_email'];
+    $form_pass = $_POST['login_pass'];
+
+    if ($form_login === $login && $form_pass === $pass) {
+        $_SESSION['zalogowany'] = true;
+
+        echo "<h1 class='admin_panel_heading'>Panel administracyjny</h1>";
+        RenderPanel();
+        exit();
     } else {
         echo FormularzLogowania();
+        echo "<p style='color:red; text-align:center; font-weight:bold'>Niepoprawny login lub hasło!</p>";
         exit();
     }
 }
@@ -163,6 +160,7 @@ function EdytujPodstrone($id)
         $success_msg = "<p class='success'>Podstrona została zaktualizowana pomyślnie!</p>";
     }
 
+    $escaped_content = htmlspecialchars($page['page_content']);
     $status_checked = $page['status'] ? 'checked' : '';
     echo "
         <div class='edit_subpage'>
@@ -174,7 +172,7 @@ function EdytujPodstrone($id)
                 <input type='text' name='page_title' value='{$page['page_title']}' required/>
                 <br/>
                 <label for='page_content'>Treść podstrony:</label><br/>
-                <textarea name='page_content' rows='10' cols='50' required>{$page['page_content']}</textarea>
+                <textarea name='page_content' rows='10' cols='50' required>{$escaped_content}</textarea>
                 <br/>
                 <label for='status'>Status podstrony:</label>
                 <input type='checkbox' id='status' name='status' {$status_checked}/>
