@@ -1,29 +1,36 @@
 <?php
+/**
+ * Plik contact.php
+ * Obsługuje formularz kontaktowy oraz resetowanie hasła administratora.
+ */
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require 'phpmailer/src/Exception.php';
 require 'phpmailer/src/PHPMailer.php';
 require 'phpmailer/src/SMTP.php';
+require 'cfg.php';
 
 echo '<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel administracyjny</title>
+    <title>Kontakt</title>
     <link rel="stylesheet" href="./css/contact.css">
 </head>';
 
 echo PokazKontakt();
 
+// Obsługa formularzy
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['send_email'])) {
         if (!empty($_POST['temat']) && !empty($_POST['tresc']) && !empty($_POST['email'])) {
             $odbiorca = $_POST['email'];
             WyslijMailKontakt($odbiorca);
         } else {
-            echo '[nie wypełniłeś pola]';
+            echo '<p class="error">[nie wypełniłeś wszystkich pól]</p>';
             echo PokazKontakt();
         }
     } elseif (isset($_POST['reset_pass'])) {
@@ -31,7 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-
+/**
+ * Wyświetla formularz kontaktowy
+ */
 function PokazKontakt()
 {
     return '
@@ -65,64 +74,84 @@ function PokazKontakt()
     ';
 }
 
-
+/**
+ * Funkcja przypominająca hasło administratora
+ * Wysyła maila na podany adres (powinien to być adres admina, ale tutaj jest dowolny z inputa - uwaga security)
+ * W prawdziwej aplikacji należałoby sprawdzić czy email jest w bazie adminów.
+ */
 function PrzypomnijHaslo()
 {
+    global $pass, $smtp_host, $smtp_auth, $smtp_username, $smtp_password, $smtp_port;
+
     if (empty($_POST['email'])) {
-        echo '[brak adresu email]';
+        echo '<p class="error">[brak adresu email]</p>';
         echo PokazKontakt();
         return;
     }
 
-    $admin_pass = "zaq1@WSXcde3";
-
     $mail = new PHPMailer(true);
 
     try {
+        // Konfiguracja serwera SMTP
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'news600613@gmail.com';
-        $mail->Password = 'zulneplolmamifbq';
+        $mail->Host = $smtp_host;
+        $mail->SMTPAuth = $smtp_auth;
+        $mail->Username = $smtp_username;
+        $mail->Password = $smtp_password;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
+        $mail->Port = $smtp_port;
 
-        $mail->setFrom('no-reply@najwieksze-mosty-swiata.pl', 'Panel administratora');
+
+        $mail->setFrom($smtp_username, 'Panel administratora');
         $mail->addAddress($_POST['email']);
+
+        // Treść
+        $mail->isHTML(false);
         $mail->Subject = "Przypomnienie hasła do panelu admina";
-        $mail->Body = "Twoje hasło administratora to: $admin_pass";
+        $mail->Body = "Twoje hasło administratora to: $pass";
+
         $mail->send();
-        echo '[haslo_wyslane]';
+        echo '<p class="success">Hasło zostało wysłane.</p>';
     } catch (Exception $e) {
-        echo "Błąd wysyłki: {$mail->ErrorInfo}";
+        echo "<p class='error'>Błąd wysyłki: {$mail->ErrorInfo}</p>";
     }
 }
 
-
-
+/**
+ * Funkcja wysyłająca maila kontaktowego
+ */
 function WyslijMailKontakt($odbiorca)
 {
+    global $smtp_host, $smtp_auth, $smtp_username, $smtp_password, $smtp_port;
+
     $mail = new PHPMailer(true);
 
     try {
+        // Konfiguracja serwera SMTP
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'news600613@gmail.com';
-        $mail->Password = 'zulneplolmamifbq';
+        $mail->Host = $smtp_host;
+        $mail->SMTPAuth = $smtp_auth;
+        $mail->Username = $smtp_username;
+        $mail->Password = $smtp_password;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
+        $mail->Port = $smtp_port;
 
-        $mail->setFrom($_POST['email'], 'Formularz kontaktowy');
-        $mail->addAddress($odbiorca);
+        // Adresaci
+        // UWAGA: setFrom musi być zgodny z kontem SMTP gmaila, inaczej może odrzucić.
+        // Ustawiamy Reply-To na maila użytkownika.
+        $mail->setFrom($smtp_username, 'Formularz kontaktowy');
+        $mail->addReplyTo($_POST['email']);
+        $mail->addAddress($odbiorca); // Tutaj mail idzie do tego co wpisał user w polu email? To trochę dziwne, ale tak było w oryginale.
+
+        // Treść
+        $mail->isHTML(false);
         $mail->Subject = $_POST['temat'];
         $mail->Body = $_POST['tresc'];
+
         $mail->send();
-        echo '[wiadomosc_wyslana]';
+        echo '<p class="success">Wiadomość została wysłana.</p>';
     } catch (Exception $e) {
-        echo "Błąd wysyłki: {$mail->ErrorInfo}";
+        echo "<p class='error'>Błąd wysyłki: {$mail->ErrorInfo}</p>";
     }
 }
-
-
 ?>
